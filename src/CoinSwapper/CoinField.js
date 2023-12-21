@@ -149,7 +149,7 @@ export default function CoinField(props) {
   //      activeField - boolean - Whether text can be entered into this field or not
 
   const classes = useStyles();
-  const { onClick, symbol, value, onChange, activeField, balance } = props;
+  const { onClick, symbol, value, onChange, activeField, balance, hideSymbol = false } = props;
 
   return (
     <div className={classes.container}>
@@ -161,6 +161,7 @@ export default function CoinField(props) {
         className={classes.grid}
       >
         {/* Button */}
+        {props.hideSymbol ? <Grid item xs={3}></Grid> :
         <Grid item xs={3}>
           <Fab
             size="small"
@@ -171,7 +172,7 @@ export default function CoinField(props) {
             {symbol}
             <ExpandMoreIcon />
           </Fab>
-        </Grid>
+        </Grid>}
 
         {/* Text Field */}
         <Grid item xs={9}>

@@ -64,7 +64,7 @@ const Web3Provider = (props) => {
           await network.router.WETH().then((wethAddress) => {
             network.weth = getWeth(wethAddress, network.signer);
             // Set the value of the weth address in the default coins array
-            network.coins[0].address = wethAddress;
+            network.coins[1].address = wethAddress;
           });
           // Get the factory address from the router
           await network.router.factory().then((factory_address) => {

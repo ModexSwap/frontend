@@ -52,11 +52,29 @@ const styles = (theme) => ({
 const useStyles = makeStyles(styles);
 
 function LiquidityDeployer(props) {
+   // Called when the dialog window for coin1 exits
+   const onToken1Selected = (address) => {
+    // Getting some token data is async, so we need to wait for the data to return, hence the promise
+    getBalanceAndSymbol(
+      props.network.account,
+      address,
+      props.network.provider,
+      props.network.signer,
+      props.network.weth.address,
+      props.network.coins
+      ).then((data) => {
+        console.log("data.balance: ", data.balance)
+      setCoin1({
+        address: address,
+        symbol: data.symbol,
+        balance: data.balance,
+      });
+    });
+  };
+
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
 
-  // Stores a record of whether their respective dialog window is open
-  const [dialog1Open, setDialog1Open] = React.useState(false);
   const [wrongNetworkOpen, setwrongNetworkOpen] = React.useState(false);
 
   // Stores data about their respective coin
@@ -78,6 +96,7 @@ function LiquidityDeployer(props) {
       setField1Value(e.target.value);
     },
   };
+
 
   // Determines whether the button should be enabled or not
   const isButtonEnabled = () => {
@@ -122,39 +141,23 @@ function LiquidityDeployer(props) {
       });
   };
 
-  // Called when the dialog window for coin1 exits
-  const onToken1Selected = (address) => {
-    // Close the dialog window
-    setDialog1Open(false);
-    // Getting some token data is async, so we need to wait for the data to return, hence the promise
-    getBalanceAndSymbol(
-      props.network.account,
-      address,
-      props.network.provider,
-      props.network.signer,
-      props.network.weth.address,
-      props.network.coins
-      ).then((data) => {
-      setCoin1({
-        address: address,
-        symbol: data.symbol,
-        balance: data.balance,
-      });
-    });
-  };
+
+  useEffect(() => {
+    // read the first coin from the network only when available
+    if (props.network.coins.length > 0){
+      onToken1Selected(props.network.coins[0].address)
+    }
+  }, [props.network.coins]);
+  
+ 
+
 
   return (
     <div>
       {/* Liquidity deployer */}
       <Typography variant="h5" className={classes.title}></Typography>
 
-      {/* Dialog Windows */}
-      <CoinDialog
-        open={dialog1Open}
-        onClose={onToken1Selected}
-        coins={props.network.coins}
-        signer={props.network.signer}
-      />
+     
       <WrongNetwork
         open={wrongNetworkOpen}
       />
@@ -162,13 +165,13 @@ function LiquidityDeployer(props) {
       <Grid container direction="column" alignItems="center" spacing={2}>
         <Grid item xs={12} className={classes.fullWidth}>
           <CoinField
-            defaultCoin={props.network.coins[0]}
             activeField={true}
             value={field1Value}
-            onClick={() => setDialog1Open(true)}
+            onClick={() => {}}
             onChange={handleChange.field1}
             symbol={coin1.symbol !== undefined ? coin1.symbol : "Select"}
             balance={coin1.balance}
+            hideSymbol={true}
           />
         </Grid>
       </Grid>
