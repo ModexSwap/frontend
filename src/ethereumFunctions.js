@@ -97,7 +97,7 @@ export async function pitchAmount(tokenAddress, address,signer,amount) {
 
   console.log('token',token)
 
-  return  await token.pitchAmount(parsedAmount);
+  return  await token.pitchAmount(parsedAmount, signer.getAddress());
 }
 
 export async function getDecimals(token) {

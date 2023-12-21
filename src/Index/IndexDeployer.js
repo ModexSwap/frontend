@@ -64,7 +64,7 @@ function LiquidityDeployer(props) {
       props.network.coins
       ).then((balance) => {
         console.log("data.balance: ", balance.balance)
-      allowance(address,props.network.signer,'0xbD7f9A197C602CC9beA29853D9c463e2624A2b62').then((allowance) => {
+      allowance(address,props.network.signer,'0x024e3451790fd6c4EDF8B59E6b0617b7a54392FF').then((allowance) => {
         console.log("ALLOWANCE",allowance);
         setCoin1({
           address: address,
@@ -122,7 +122,7 @@ function LiquidityDeployer(props) {
     console.log("Attempting to deploy liquidity...");
     setLoading(true);
     if(coin1.balance>coin1.allowance && field1Value>coin1.allowance){
-        approve(coin1.address,props.network.signer,'0xbD7f9A197C602CC9beA29853D9c463e2624A2b62', field1Value).then(() => {
+        approve(coin1.address,props.network.signer,'0x024e3451790fd6c4EDF8B59E6b0617b7a54392FF', field1Value).then(() => {
             setLoading(false);
             enqueueSnackbar("Approve Successful", { variant: "success" });
         })
@@ -134,7 +134,7 @@ function LiquidityDeployer(props) {
             });
         });
     }else {
-        pitchAmount(coin1.address,'0xbD7f9A197C602CC9beA29853D9c463e2624A2b62',props.network.signer,field1Value).then(() => {
+        pitchAmount(coin1.address,'0x024e3451790fd6c4EDF8B59E6b0617b7a54392FF',props.network.signer,field1Value).then(() => {
             setLoading(false);
             enqueueSnackbar("Pitch Successful", { variant: "success" });
         });
