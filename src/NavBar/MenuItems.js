@@ -9,4 +9,9 @@ export const MenuItems = [
     url: "/liquidity",
     cName: "nav-links",
   },
+  {
+    title: "Index",
+    url: "/buy-index",
+    cName: "nav-links",
+  },
 ];

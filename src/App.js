@@ -12,6 +12,7 @@ import blue from "@material-ui/core/colors/blue";
 import blueGrey from "@material-ui/core/colors/blueGrey";
 
 import background from "./images/bg.png";
+import Index from "./Index/Index";
 
 const theme = createTheme({
   palette: {
@@ -44,6 +45,10 @@ const App = () => {
 
                     <Route exact path="/liquidity">
                       <Liquidity network={network} />
+                    </Route>
+
+                    <Route exact path="/buy-index">
+                      <Index network={network} />
                     </Route>
                   </Grid>
                 </Grid>

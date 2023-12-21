@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     padding: theme.spacing(1),
     minHeight: "80px",
-    backgroundColor: '#121212',
+    backgroundColor: "#121212",
     borderRadius: theme.spacing(2),
     borderColor: COLORS.blueGrey[300],
     borderWidth: "1px",
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   container_input: {
     padding: theme.spacing(1),
     minHeight: "68px",
-    backgroundColor: '#121212',
+    backgroundColor: "#121212",
     borderRadius: theme.spacing(2),
     borderColor: COLORS.blueGrey[300],
     borderWidth: "1px",
@@ -150,7 +150,15 @@ export default function CoinField(props) {
   //      activeField - boolean - Whether text can be entered into this field or not
 
   const classes = useStyles();
-  const { onClick, symbol, value, onChange, activeField } = props;
+  const {
+    onClick,
+    symbol,
+    value,
+    onChange,
+    activeField,
+    balance,
+    hideSymbol = false,
+  } = props;
 
   return (
     <div className={classes.container}>
@@ -162,25 +170,26 @@ export default function CoinField(props) {
         className={classes.grid}
       >
         {/* Button */}
-        <Grid item xs={3}>
-          <Button
-            size="small"
-            variant="extended"
-            onClick={onClick}
-            className={classes.fab}
-            endIcon={<ExpandMoreIcon />}
-
-          >
-            {symbol}
-          </Button>
-        </Grid>
-
-        {/* Text Field */}
+        {props.hideSymbol ? (
+          <Grid item xs={3}></Grid>
+        ) : (
+          <Grid item xs={3}>
+            <Button
+              size="small"
+              variant="extended"
+              onClick={onClick}
+              className={classes.fab}
+              endIcon={<ExpandMoreIcon />}
+            >
+              {symbol}
+            </Button>
+          </Grid>
+        )}
         <Grid item xs={9}>
           <InputBase
             value={value}
             onChange={onChange}
-            placeholder="0.0"
+            placeholder={balance ? balance : "0.0"}
             disabled={!activeField}
             classes={{ root: classes.input, input: classes.inputBase }}
           />
