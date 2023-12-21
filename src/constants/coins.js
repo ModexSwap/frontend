@@ -7,6 +7,11 @@ const MAINNETCoins = [
     address: "0x88d11ccf16bd80CF89e5494E2f8BCb062bb0Cc56",
   },
   {
+    name: "Pocket Index",
+    abbr: "PocketIndex",
+    address: "0x4A85e1a3Cca418b42B5f1cB48dCe7AE72bFcaA6E",
+  },
+  {
     name: "Ether",
     abbr: "ETH",
     address: "", // Weth address is fetched from the router

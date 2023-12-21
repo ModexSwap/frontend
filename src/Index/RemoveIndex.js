@@ -56,7 +56,6 @@ function LiquidityRemover(props) {
   const { enqueueSnackbar } = useSnackbar();
 
   // Stores a record of whether their respective dialog window is open
-  const [dialog1Open, setDialog1Open] = React.useState(false);
   const [wrongNetworkOpen, setwrongNetworkOpen] = React.useState(false);
 
 
@@ -67,46 +66,18 @@ function LiquidityRemover(props) {
     balance: undefined,
   });
 
-  // Stores the current reserves in the liquidity pool between coin1
-  const [reserves, setReserves] = React.useState(["0.0"]);
-
   // Stores the current value of their respective text box
   const [field1Value, setField1Value] = React.useState("");
 
   // Controls the loading button
   const [loading, setLoading] = React.useState(false);
 
-  // Stores the liquidity tokens balance of the user
-  const [liquidityTokens, setLiquidityTokens] = React.useState("");
-
-  // Stores the input and output for the liquidity removal preview
-  const [tokensOut, setTokensOut] = React.useState([0, 0, 0]);
-
-  // Switches the top and bottom coins, this is called when users hit the swap button or select the opposite
-  // token in the dialog (e.g. if coin1 is TokenA and the user selects TokenB when choosing)
-  const switchFields = () => {
-    setCoin1(coin1);
-    setReserves(reserves.reverse());
-  };
 
   // These functions take an HTML event, pull the data out and puts it into a state variable.
   const handleChange = {
     field1: (e) => {
       setField1Value(e.target.value);
     },
-  };
-
-  // Turns the account's balance into something nice and readable
-  const formatBalance = (balance, symbol) => {
-    if (balance && symbol)
-      return parseFloat(balance).toPrecision(8) + " " + symbol;
-    else return "0.0";
-  };
-
-  // Turns the coin's reserves into something nice and readable
-  const formatReserve = (reserve, symbol) => {
-    if (reserve && symbol) return reserve + " " + symbol;
-    else return "0.0";
   };
 
   // Determines whether the button should be enabled or not
@@ -117,7 +88,7 @@ function LiquidityRemover(props) {
       coin1.address &&
       parsedInput !== NaN &&
       0 < parsedInput &&
-      parsedInput <= liquidityTokens
+      parsedInput <= coin1.balance
     );
   };
 
@@ -153,15 +124,6 @@ function LiquidityRemover(props) {
 
   // Called when the dialog window for coin1 exits
   const onToken1Selected = (address) => {
-    // Close the dialog window
-    setDialog1Open(false);
-
-    // If the user inputs the same token, we want to switch the data in the fields
-    if (address === coin1.address) {
-      switchFields();
-    }
-    // We only update the values if the user provides a token
-    else if (address) {
       // Getting some token data is async, so we need to wait for the data to return, hence the promise
       getBalanceAndSymbol(
         props.network.account,
@@ -177,99 +139,19 @@ function LiquidityRemover(props) {
           balance: data.balance,
         });
       });
-    }
   };
 
-  // This hook is called when either of the state variables `coin1.address` or `coin2.address` change.
-  // This means that when the user selects a different coin to convert between, or the coins are swapped,
-  // the new reserves will be calculated.
   useEffect(() => {
-    console.log(
-      "Trying to get reserves between:\n" + coin1.address
-    );
-
-    if (coin1.address && props.network.account) {
-      getReserves(
-        coin1.address,
-        props.network.factory,
-        props.network.signer,
-        props.network.account).then(
-        (data) => {
-          setReserves([data[0], data[1]]);
-          setLiquidityTokens(data[2]);
-        }
-      );
+    // read the first coin from the network only when available
+    if (props.network.coins.length > 0){
+      onToken1Selected(props.network.coins[1].address)
     }
-  }, [coin1.address, props.network.account, props.network.factory, props.network.signer]);
-
-  // This hook is called when either of the state variables `field1Value`, `coin1.address`  change.
-  // It will give a preview of the liquidity removal.
-  useEffect(() => {
-    if (isButtonEnabled()) {
-      console.log("Trying to preview the liquidity removal");
-      quoteRemoveLiquidity(
-        coin1.address,
-        field1Value,
-        props.network.factory,
-        props.network.signer
-      ).then((data) => {
-        setTokensOut(data);
-      });
-    }
-  }, [coin1.address, field1Value, props.network.factory, props.network.signer]);
-
-  useEffect(() => {
-    // This hook creates a timeout that will run every ~10 seconds, it's role is to check if the user's balance has
-    // updated has changed. This allows them to see when a transaction completes by looking at the balance output.
-
-    const coinTimeout = setTimeout(() => {
-      console.log("Checking balances & Getting reserves...");
-
-      if (coin1.address && props.network.account) {
-        getReserves(
-          coin1.address,
-          props.network.factory,
-          props.network.signer,
-          props.network.account
-        ).then((data) => {
-          setReserves([data[0], data[1]]);
-          setLiquidityTokens(data[2]);
-        });
-      }
-
-      if (coin1.address && props.network.account &&!wrongNetworkOpen) {
-        getBalanceAndSymbol(
-          props.network.account,
-          coin1.address, props.network.provider,
-          props.network.signer,
-          props.network.weth.address,
-          props.network.coins
-          ).then(
-          (data) => {
-            setCoin1({
-              ...coin1,
-              balance: data.balance,
-            });
-          }
-        );
-      }
-    }, 10000);
-
-    return () => clearTimeout(coinTimeout);
-  });
-
+  }, [props.network.coins]);
+ 
   return (
     <div>
       {/* Coin Swapper */}
       <Typography variant="h5" className={classes.title}></Typography>
-
-      {/* Dialog Windows */}
-      <CoinDialog
-        open={dialog1Open}
-        onClose={onToken1Selected}
-        coins={props.network.coins}
-        signer={props.network.signer}
-      />
       <WrongNetwork
         open={wrongNetworkOpen}
       />
@@ -279,10 +161,11 @@ function LiquidityRemover(props) {
           <CoinField
               activeField={true}
               value={field1Value}
-              onClick={() => setDialog1Open(true)}
+              onClick={() => {}}
               onChange={handleChange.field1}
               symbol={coin1.symbol !== undefined ? coin1.symbol : "Select"}
               balance={coin1.balance}
+              hideSymbol={true}
           />
         </Grid>
       </Grid>
@@ -296,7 +179,7 @@ function LiquidityRemover(props) {
           onClick={remove}
         >
           <ArrowDownwardIcon className={classes.buttonIcon} />
-          Remove
+          Sell
         </LoadingButton>
       </Grid>
     </div>
