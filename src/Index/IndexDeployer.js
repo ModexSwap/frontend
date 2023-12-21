@@ -195,7 +195,7 @@ function LiquidityDeployer(props) {
           onClick={deploy}
         >
           <AccountBalanceIcon className={classes.buttonIcon} />
-          Deploy
+          Buy Index
         </LoadingButton>
       </Grid>
     </div>
