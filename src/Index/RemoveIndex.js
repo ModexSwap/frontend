@@ -169,6 +169,8 @@ function LiquidityRemover(props) {
           />
         </Grid>
       </Grid>
+      <hr className={classes.hr} />
+
 
       <Grid container direction="column" alignItems="center" spacing={2}>
         <LoadingButton

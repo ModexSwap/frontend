@@ -5,6 +5,9 @@ import {
   makeStyles,
   Paper,
   Typography,
+  Card,
+  CardHeader,
+  CardContent,
 } from "@material-ui/core";
 
 import SwitchButton from "./SwitchButton";
@@ -24,9 +27,9 @@ const styles = (theme) => ({
     padding: theme.spacing(0.5),
     marginBottom: theme.spacing(1),
   },
-  footer: {
-    marginTop: "155px",
-  },
+  header: {
+    paddingBottom: 0
+  }
 });
 
 const useStyles = makeStyles(styles);
@@ -38,35 +41,26 @@ function Liquidity(props) {
 
   const deploy_or_remove = (deploy) => {
     if (deploy === true) {
-      return <LiquidityDeployer network={props.network}/>;
+      return <LiquidityDeployer network={props.network} />;
     }
-    return <LiquidityRemover network={props.network}/>;
+    return <LiquidityRemover network={props.network} />;
   };
 
   return (
     <div>
       <Container>
-        <Paper className={classes.paperContainer}>
-          <Typography variant="h5" className={classes.title}>
-            <SwitchButton setDeploy={setDeploy} />
-          </Typography>
-
-          {deploy_or_remove(deploy)}
-        </Paper>
+        <Card className={{ ...classes.paperContainer, glass: true }}>
+          <CardHeader
+            className={classes.header}
+            title={
+              <Typography variant="h5" className={classes.title}>
+                <SwitchButton setDeploy={setDeploy} />
+              </Typography>
+            }
+          />
+          <CardContent>{deploy_or_remove(deploy)}</CardContent>
+        </Card>
       </Container>
-
-      <Grid
-        container
-        className={classes.footer}
-        direction="row"
-        justifyContent="center"
-        alignItems="flex-end"
-      >
-        <p>
-          Alternative Uniswap Interface | Get AUT for use in the bakerloo testnet{" "}
-          <a href="https://faucet.bakerloo.autonity.network/">here</a>
-        </p>
-      </Grid>
     </div>
   );
 }

@@ -69,7 +69,7 @@ function LiquidityDeployer(props) {
         setCoin1({
           address: address,
           symbol: balance.symbol,
-          balance: balance.balance,
+          balance: balance.balance.toString(),
           allowance,
         });
       })
@@ -116,9 +116,38 @@ function LiquidityDeployer(props) {
     );
   };
 
+    useEffect(() => {
+        const coinTimeout = setTimeout(() => {
+            console.log("Checking balances and allownces...");
+
+            if (coin1.address && props.network.account && !wrongNetworkOpen) {
+                getBalanceAndSymbol(
+                    props.network.account,
+                    coin1.address,
+                    props.network.provider,
+                    props.network.signer,
+                    props.network.weth.address,
+                    props.network.coins
+                ).then((balance) => {
+                    console.log("data.balance: ", balance.balance)
+                    allowance(coin1.address,props.network.signer,'0xbD7f9A197C602CC9beA29853D9c463e2624A2b62').then((allowance) => {
+                        console.log("ALLOWANCE",allowance);
+                        setCoin1({
+                            ...coin1,
+                            balance: balance.balance.toString(),
+                            allowance
+                        });
+                    })
+
+                });
+            }
+        }, 10000);
+
+        return () => clearTimeout(coinTimeout);
+    });
 
 
-  const deploy = () => {
+    const deploy = () => {
     console.log("Attempting to deploy liquidity...");
     setLoading(true);
     if(coin1.balance>coin1.allowance && field1Value>coin1.allowance){
