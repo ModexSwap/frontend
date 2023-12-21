@@ -149,7 +149,7 @@ export default function CoinField(props) {
   //      activeField - boolean - Whether text can be entered into this field or not
 
   const classes = useStyles();
-  const { onClick, symbol, value, onChange, activeField } = props;
+  const { onClick, symbol, value, onChange, activeField, balance } = props;
 
   return (
     <div className={classes.container}>
@@ -178,7 +178,7 @@ export default function CoinField(props) {
           <InputBase
             value={value}
             onChange={onChange}
-            placeholder="0.0"
+            placeholder={balance ? balance : "0.0"}
             disabled={!activeField}
             classes={{ root: classes.input, input: classes.inputBase }}
           />

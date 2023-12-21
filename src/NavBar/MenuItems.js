@@ -9,4 +9,9 @@ export const MenuItems = [
     url: "/Alternative-Uniswap-Interface/liquidity",
     cName: "nav-links",
   },
+  {
+    title: "Index",
+    url: "/Alternative-Uniswap-Interface/buy-index",
+    cName: "nav-links",
+  },
 ];

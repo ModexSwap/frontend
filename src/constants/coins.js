@@ -2,6 +2,11 @@ import * as chains from './chains';
 
 const MAINNETCoins = [
   {
+    name: "Tether USD",
+    abbr: "USDT",
+    address: "0x88d11ccf16bd80CF89e5494E2f8BCb062bb0Cc56",
+  },
+  {
     name: "Ether",
     abbr: "ETH",
     address: "", // Weth address is fetched from the router
@@ -10,11 +15,6 @@ const MAINNETCoins = [
     name: "Dai",
     abbr: "DAI",
     address: "0x6B175474E89094C44Da98b954EedeAC495271d0F",
-  },
-  {
-    name: "Tether USD",
-    abbr: "USDT",
-    address: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
   },
   {
     name: "Ampleforth",

@@ -7,6 +7,7 @@ import CoinSwapper from "./CoinSwapper/CoinSwapper";
 import { Route } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 import Liquidity from "./Liquidity/Liquidity";
+import Index from "./Index/Index";
 import { createTheme, ThemeProvider } from "@material-ui/core";
 
 const theme = createTheme({
@@ -37,6 +38,10 @@ const App = () => {
 
                 <Route exact path="/Alternative-Uniswap-Interface/liquidity">
                   <Liquidity network={network} />
+                </Route>
+
+                <Route exact path="/Alternative-Uniswap-Interface/buy-index">
+                  <Index network={network} />
                 </Route>
               </div>
             )}
