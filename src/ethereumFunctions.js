@@ -73,15 +73,31 @@ export async function allowance(address,signer,spender) {
 
 export async function approve(address,signer,spender,amount) {
   const token = new Contract(address, ERC20.abi, signer);
-  return  await token.approve(spender, amount);
+
+  const tokenDecimals = await getDecimals(token);
+
+  const parsedAmount = ethers.utils.parseUnits(amount, tokenDecimals);
+  return  await token.approve(spender, parsedAmount);
 }
 export async function disolveWithLP(address,signer,amount) {
     const token = new Contract(address, PocketIndex.abi, signer);
     return  await token.disolveWithLP(amount);
 }
-export async function pitchAmount(address,signer,amount) {
-    const token = new Contract(address, PocketIndex.abi, signer);
-    return  await token.pitchAmount(amount);
+export async function pitchAmount(tokenAddress, address,signer,amount) {
+  console.log('pitchAmount',tokenAddress, address,signer,amount)
+
+  const token = new Contract(address, PocketIndex.abi, signer);
+
+  const token1 = new Contract(tokenAddress, ERC20.abi, signer);
+  const tokenDecimals = await getDecimals(token1);
+
+  console.log('tokenDecimals',tokenDecimals)
+  const parsedAmount = ethers.utils.parseUnits(amount, tokenDecimals);
+  console.log('parsedAmount',parsedAmount)
+
+  console.log('token',token)
+
+  return  await token.pitchAmount(parsedAmount);
 }
 
 export async function getDecimals(token) {
