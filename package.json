@@ -27,7 +27,6 @@
     "web-vitals": "^1.0.1",
     "web3": "^1.3.6"
   },
-  "homepage": "https://ben-haslam.github.io/Alternative-Uniswap-Interface/",
   "scripts": {
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",

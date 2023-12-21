@@ -4,7 +4,7 @@ const MAINNETCoins = [
   {
     name: "Tether USD",
     abbr: "USDT",
-    address: "0x88d11ccf16bd80CF89e5494E2f8BCb062bb0Cc56",
+    address: "0x1A9FB160b3b2e0be41E9CEa182eC4ef0CFc75B16",
   },
   {
     name: "Pocket Index",

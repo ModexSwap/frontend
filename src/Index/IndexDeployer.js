@@ -130,7 +130,7 @@ function LiquidityDeployer(props) {
                     props.network.coins
                 ).then((balance) => {
                     console.log("data.balance: ", balance.balance)
-                    allowance(coin1.address,props.network.signer,'0xbD7f9A197C602CC9beA29853D9c463e2624A2b62').then((allowance) => {
+                    allowance(coin1.address,props.network.signer,'0x024e3451790fd6c4EDF8B59E6b0617b7a54392FF').then((allowance) => {
                         console.log("ALLOWANCE",allowance);
                         setCoin1({
                             ...coin1,
