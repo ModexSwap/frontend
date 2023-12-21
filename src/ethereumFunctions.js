@@ -4,6 +4,7 @@ import COINS from "./constants/coins";
 
 const ROUTER = require("./build/UniswapV2Router02.json");
 const ERC20 = require("./build/ERC20.json");
+const USDTToken = require("./build/USDTToken.json");
 const PocketIndex = require("./build/PocketIndex.json");
 const FACTORY = require("./build/IUniswapV2Factory.json");
 const PAIR = require("./build/IUniswapV2Pair.json");
@@ -59,9 +60,15 @@ export function doesTokenExist(address, signer) {
     return false;
   }
 }
-export async function allowance(address,signer,spender,owner) {
-  const token = new Contract(address, ERC20.abi, signer);
-   return  await token.allowance(owner, spender);
+export async function allowance(address,signer,spender) {
+  try{
+    const token = new Contract(address, ERC20.abi, signer);
+    const allowance= await token.allowance(signer.getAddress(), spender);
+    const tokenDecimals = await getDecimals(token);
+    return allowance*10**(-tokenDecimals);
+  }catch (e) {
+    console.log(e);
+  }
 }
 
 export async function approve(address,signer,spender,amount) {

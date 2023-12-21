@@ -3,7 +3,7 @@ import { Grid, makeStyles, Paper, Typography } from "@material-ui/core";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import { useSnackbar } from "notistack";
 import {
-  getBalanceAndSymbol,
+  getBalanceAndSymbol,allowance,approve,pitchAmount,disolveWithLP,
   getReserves,
 } from "../ethereumFunctions";
 
@@ -54,7 +54,7 @@ const useStyles = makeStyles(styles);
 function LiquidityDeployer(props) {
    // Called when the dialog window for coin1 exits
    const onToken1Selected = (address) => {
-    // Getting some token data is async, so we need to wait for the data to return, hence the promise
+     // Getting some token data is async, so we need to wait for the data to return, hence the promise
     getBalanceAndSymbol(
       props.network.account,
       address,
@@ -62,13 +62,18 @@ function LiquidityDeployer(props) {
       props.network.signer,
       props.network.weth.address,
       props.network.coins
-      ).then((data) => {
-        console.log("data.balance: ", data.balance)
-      setCoin1({
-        address: address,
-        symbol: data.symbol,
-        balance: data.balance,
-      });
+      ).then((balance) => {
+        console.log("data.balance: ", balance.balance)
+      allowance(address,props.network.signer,'0xc2dB488475680DFeAb8D4a857aC42aC0644FafF4').then((allowance) => {
+        console.log("ALLOWANCE",allowance);
+        setCoin1({
+          address: address,
+          symbol: balance.symbol,
+          balance: balance.balance,
+          allowance,
+        });
+      })
+
     });
   };
 
@@ -82,6 +87,7 @@ function LiquidityDeployer(props) {
     address: undefined,
     symbol: undefined,
     balance: undefined,
+    allowance: undefined,
   });
 
   // Stores the current value of their respective text box
@@ -115,30 +121,24 @@ function LiquidityDeployer(props) {
   const deploy = () => {
     console.log("Attempting to deploy liquidity...");
     setLoading(true);
-
-    addLiquidity(
-      coin1.address,
-      field1Value,
-      '0',
-      '0',
-      props.network.router,
-      props.network.account,
-      props.network.signer
-    )
-      .then(() => {
-        setLoading(false);
-
-        // If the transaction was successful, we clear to input to make sure the user doesn't accidental redo the transfer
-        setField1Value("");
-        enqueueSnackbar("Deployment Successful", { variant: "success" });
-      })
-      .catch((e) => {
-        setLoading(false);
-        enqueueSnackbar("Deployment Failed (" + e.message + ")", {
-          variant: "error",
-          autoHideDuration: 10000,
+    if(coin1.balance>coin1.allowance){
+        approve(coin1.address,props.network.signer,'0xc2dB488475680DFeAb8D4a857aC42aC0644FafF4').then(() => {
+            setLoading(false);
+            enqueueSnackbar("Approve Successful", { variant: "success" });
+        })
+        .catch((e) => {
+            setLoading(false);
+            enqueueSnackbar("Approve Failed (" + e.message + ")", {
+            variant: "error",
+            autoHideDuration: 10000,
+            });
         });
-      });
+    }else {
+        pitchAmount(coin1.address,props.network.signer,field1Value).then(() => {
+            setLoading(false);
+            enqueueSnackbar("Pitch Successful", { variant: "success" });
+        });
+    }
   };
 
 
@@ -148,8 +148,8 @@ function LiquidityDeployer(props) {
       onToken1Selected(props.network.coins[0].address)
     }
   }, [props.network.coins]);
-  
- 
+
+
 
 
   return (
@@ -157,7 +157,7 @@ function LiquidityDeployer(props) {
       {/* Liquidity deployer */}
       <Typography variant="h5" className={classes.title}></Typography>
 
-     
+
       <WrongNetwork
         open={wrongNetworkOpen}
       />
@@ -195,7 +195,7 @@ function LiquidityDeployer(props) {
           onClick={deploy}
         >
           <AccountBalanceIcon className={classes.buttonIcon} />
-          Buy Index
+          {coin1.balance > coin1.allowance? "Approve" :"Buy Index" }
         </LoadingButton>
       </Grid>
     </div>
