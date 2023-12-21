@@ -1,4 +1,4 @@
-.Title {
+/* .Title {
   background: #f4f4f4;
   height: 50px;
   text-align: left;
@@ -59,4 +59,15 @@
   text-decoration: none;
   border-radius: 4px;
   transition: all 0.2s ease-out;
+} */
+
+.app-bar {
+  padding: 0 12px;
+  border-radius: 0 0 12px 12px !important
+}
+
+.app-bar .logo {
+  height: 50px;
+  width: 50px;
+  margin-right: 12px;
 }

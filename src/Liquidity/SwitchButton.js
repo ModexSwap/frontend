@@ -1,5 +1,6 @@
 import React from "react";
 import { ButtonGroup, Button } from "@material-ui/core";
+import * as COLORS from "@material-ui/core/colors";
 
 export default function SwitchButton(props) {
   const { setDeploy } = props;
@@ -7,16 +8,16 @@ export default function SwitchButton(props) {
   const changeStyles = (K) => {
     if (K === true) {
       let add_button = document.getElementById("add-button");
-      add_button.style.backgroundColor = "#ff0000";
+      add_button.style.backgroundColor = COLORS.blue[800]; 
 
       let remove_button = document.getElementById("remove-button");
-      remove_button.style.backgroundColor = "#9e9e9e";
+      remove_button.style.backgroundColor = COLORS.blueGrey[900];
     } else {
       let remove_button = document.getElementById("remove-button");
-      remove_button.style.backgroundColor = "#ff0000";
+      remove_button.style.backgroundColor = COLORS.blue[800];
 
       let add_button = document.getElementById("add-button");
-      add_button.style.backgroundColor = "#9e9e9e";
+      add_button.style.backgroundColor = COLORS.blueGrey[900];
     }
   };
 

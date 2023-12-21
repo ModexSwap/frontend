@@ -1,5 +1,5 @@
 import React from "react";
-import { Fab, Grid, InputBase, makeStyles } from "@material-ui/core";
+import { Fab, Grid, InputBase, makeStyles, Button } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import PropTypes from "prop-types";
 import * as COLORS from "@material-ui/core/colors";
@@ -8,18 +8,18 @@ const useStyles = makeStyles((theme) => ({
   container: {
     padding: theme.spacing(1),
     minHeight: "80px",
-    backgroundColor: COLORS.grey[50],
+    backgroundColor: '#121212',
     borderRadius: theme.spacing(2),
-    borderColor: COLORS.grey[300],
+    borderColor: COLORS.blueGrey[300],
     borderWidth: "1px",
     borderStyle: "solid",
   },
   container_input: {
     padding: theme.spacing(1),
     minHeight: "68px",
-    backgroundColor: COLORS.grey[50],
+    backgroundColor: '#121212',
     borderRadius: theme.spacing(2),
-    borderColor: COLORS.grey[300],
+    borderColor: COLORS.blueGrey[300],
     borderWidth: "1px",
     borderStyle: "solid",
     marginLeft: "50%",
@@ -74,15 +74,16 @@ export function RemoveLiquidityField1(props) {
       >
         {/* Button */}
         <Grid item xs={3}>
-          <Fab
+          <Button
             size="small"
             variant="extended"
+            backgroundColor="secondary"
             onClick={onClick}
             className={classes.fab}
+            endIcon={<ExpandMoreIcon />}
           >
             {symbol}
-            <ExpandMoreIcon />
-          </Fab>
+          </Button>
         </Grid>
         {/* Text Field */}
         <Grid item xs={9}>
@@ -125,7 +126,7 @@ export function RemoveLiquidityField2(props) {
       >
         {/* Button */}
         <Grid item xs={3}>
-          <Fab
+          <Button
             size="small"
             variant="extended"
             onClick={onClick}
@@ -133,7 +134,7 @@ export function RemoveLiquidityField2(props) {
           >
             {symbol}
             <ExpandMoreIcon />
-          </Fab>
+          </Button>
         </Grid>
       </Grid>
     </div>
@@ -162,15 +163,16 @@ export default function CoinField(props) {
       >
         {/* Button */}
         <Grid item xs={3}>
-          <Fab
+          <Button
             size="small"
             variant="extended"
             onClick={onClick}
             className={classes.fab}
+            endIcon={<ExpandMoreIcon />}
+
           >
             {symbol}
-            <ExpandMoreIcon />
-          </Fab>
+          </Button>
         </Grid>
 
         {/* Text Field */}

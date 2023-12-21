@@ -1,34 +1,41 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { MenuItems } from "./MenuItems";
 import "./NavBar.css";
+import { MenuItems } from "./MenuItems";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Button,
+  Grid,
+  Avatar,
+} from "@material-ui/core";
 
 class NavBar extends Component {
   state = { clicked: false };
 
   render() {
     return (
-      <nav>
-        <div className="Title">
-          <h1 className="navbar-logo">
-            Alternative Uniswap Interface
-          </h1>
-        </div>
+      <AppBar position="start" className="app-bar glass">
+        <Toolbar>
+          <Avatar size="large" className="logo" style={{ "background-color": "transparent", color: "white" }}>
+            M<sub>x</sub>
+          </Avatar>
 
-        <div className="NavbarItems">
-          <ul className={`nav-menu`}>
-            {MenuItems.map((item, index) => {
-              return (
-                <li key={index}>
-                  <Link className={"nav-links"} to={item.url}>
-                    {item.title}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </nav>
+          {MenuItems.map((item, index) => {
+            return (
+              <Button
+                edge="end"
+                size="large"
+                key={index}
+                href={item.url}
+              >
+                {item.title}
+              </Button>
+            );
+          })}
+        </Toolbar>
+      </AppBar>
     );
   }
 }

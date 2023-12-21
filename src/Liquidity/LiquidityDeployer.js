@@ -13,16 +13,17 @@ import CoinField from "../CoinSwapper/CoinField";
 import CoinDialog from "../CoinSwapper/CoinDialog";
 import LoadingButton from "../Components/LoadingButton";
 import WrongNetwork from "../Components/wrongNetwork";
+import * as COLORS from "@material-ui/core/colors";
 
 const styles = (theme) => ({
   paperContainer: {
     borderRadius: theme.spacing(2),
     padding: theme.spacing(2),
     paddingBottom: theme.spacing(3),
-    width: "40%",
+    width: "90%",
     overflow: "wrap",
-    background: "linear-gradient(45deg, #ff0000 30%, #FF8E53 90%)",
-    color: "white",
+    background: "linear-gradient(90deg, hsla(339, 100%, 55%, 1) 0%, hsla(197, 100%, 64%, 1) 100%)",
+    color: COLORS.blueGrey[900],
   },
   fullWidth: {
     width: "100%",
@@ -398,9 +399,10 @@ function LiquidityDeployer(props) {
           direction="column"
           alignItems="center"
           spacing={2}
+          xs={12}
         >
           {/* Balance Display */}
-          <Typography variant="h6">Your Balances</Typography>
+          <Typography variant="h6">Balances</Typography>
           <Grid container direction="row" justifyContent="space-between">
             <Grid item xs={6}>
               <Typography variant="body1" className={classes.balance}>
@@ -434,7 +436,7 @@ function LiquidityDeployer(props) {
           <hr className={classes.hr} />
 
           {/* Liquidity Tokens Display */}
-          <Typography variant="h6">Your Liquidity Pool Tokens</Typography>
+          <Typography variant="h6">Liquidity Pool Tokens</Typography>
           <Grid container direction="row" justifyContent="center">
             <Grid item xs={6}>
               <Typography variant="body1" className={classes.balance}>
