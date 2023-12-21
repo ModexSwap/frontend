@@ -4,6 +4,7 @@ import COINS from "./constants/coins";
 
 const ROUTER = require("./build/UniswapV2Router02.json");
 const ERC20 = require("./build/ERC20.json");
+const PocketIndex = require("./build/PocketIndex.json");
 const FACTORY = require("./build/IUniswapV2Factory.json");
 const PAIR = require("./build/IUniswapV2Pair.json");
 
@@ -57,6 +58,23 @@ export function doesTokenExist(address, signer) {
   } catch (err) {
     return false;
   }
+}
+export async function allowance(address,signer,spender,owner) {
+  const token = new Contract(address, ERC20.abi, signer);
+   return  await token.allowance(owner, spender);
+}
+
+export async function approve(address,signer,spender,amount) {
+  const token = new Contract(address, ERC20.abi, signer);
+  return  await token.approve(spender, amount);
+}
+export async function disolveWithLP(address,signer,amount) {
+    const token = new Contract(address, PocketIndex.abi, signer);
+    return  await token.disolveWithLP(amount);
+}
+export async function pitchAmount(address,signer,amount) {
+    const token = new Contract(address, PocketIndex.abi, signer);
+    return  await token.pitchAmount(amount);
 }
 
 export async function getDecimals(token) {
@@ -132,7 +150,7 @@ export async function swapTokens(
 
   const token1 = new Contract(address1, ERC20.abi, signer);
   const tokenDecimals = await getDecimals(token1);
-  
+
   const amountIn = ethers.utils.parseUnits(amount, tokenDecimals);
   const amountOut = await routerContract.callStatic.getAmountsOut(
     amountIn,
@@ -255,15 +273,15 @@ export async function getReserves(
   try {
     const pairAddress = await factory.getPair(address1, address2);
     const pair = new Contract(pairAddress, PAIR.abi, signer);
-  
+
     if (pairAddress !== '0x0000000000000000000000000000000000000000'){
-  
+
       const reservesRaw = await fetchReserves(address1, address2, pair, signer);
       const liquidityTokens_BN = await pair.balanceOf(accountAddress);
       const liquidityTokens = Number(
         ethers.utils.formatEther(liquidityTokens_BN)
       );
-    
+
       return [
         reservesRaw[0].toPrecision(6),
         reservesRaw[1].toPrecision(6),
