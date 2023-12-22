@@ -16,6 +16,7 @@ const styles = (theme) => ({
     borderRadius: theme.spacing(2),
     padding: theme.spacing(1),
     paddingBottom: theme.spacing(3),
+    background: 'color: rgb(31,34,49)',
     maxWidth: 700,
     margin: "auto",
   },
@@ -46,7 +47,7 @@ function Liquidity(props) {
   return (
     <div>
       <Container>
-        <Paper className={classes.paperContainer}>
+        <Paper className={classes.paperContainer} style={{backgroundColor: "rgb(32,34,49)"}}>
           <Typography variant="h5" className={classes.title}>
             <SwitchButton setDeploy={setDeploy} />
           </Typography>

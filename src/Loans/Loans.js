@@ -10,10 +10,6 @@ import {
   CardContent,
 } from "@material-ui/core";
 
-import SwitchButton from "./SwitchButton";
-import LiquidityDeployer from "./LiquidityDeployer";
-import LiquidityRemover from "./RemoveLiquidity";
-
 const styles = (theme) => ({
   paperContainer: {
     borderRadius: theme.spacing(2),
@@ -36,17 +32,11 @@ const styles = (theme) => ({
 
 const useStyles = makeStyles(styles);
 
-function Liquidity(props) {
+function Loans(props) {
   const classes = useStyles();
 
   const [deploy, setDeploy] = React.useState(true);
 
-  const deploy_or_remove = (deploy) => {
-    if (deploy === true) {
-      return <LiquidityDeployer network={props.network} />;
-    }
-    return <LiquidityRemover network={props.network} />;
-  };
 
   return (
     <div class>
@@ -54,18 +44,13 @@ function Liquidity(props) {
         <Card className={{ ...classes.paperContainer, glass: true }} style={{backgroundColor: "rgb(32,34,49)"}}>
           <CardHeader
             className={classes.header}
-            title={
-              <Typography variant="h5"                           style={{color: "white"}}
-                          className={classes.title}>
-                <SwitchButton setDeploy={setDeploy} />
-              </Typography>
-            }
           />
-          <CardContent>{deploy_or_remove(deploy)}</CardContent>
+          <h1 class="text-center text-white">Money Markets</h1>
+          <p class="text-center text-white">Coming Soon ...</p>
         </Card>
       </Container>
     </div>
   );
 }
 
-export default Liquidity;
+export default Loans;

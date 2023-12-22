@@ -147,11 +147,12 @@ function LiquidityRemover(props) {
       onToken1Selected(props.network.coins[1].address)
     }
   }, [props.network.coins]);
- 
+
   return (
     <div>
       {/* Coin Swapper */}
-      <Typography variant="h5" className={classes.title}></Typography>
+      <Typography variant="h5"                           style={{color: "white"}}
+                  className={classes.title}></Typography>
       <WrongNetwork
         open={wrongNetworkOpen}
       />
@@ -177,10 +178,12 @@ function LiquidityRemover(props) {
           loading={loading}
           valid={isButtonEnabled()}
           success={false}
-          fail={false}
+          fail={false}                          style={{color: "white"}}
+
           onClick={remove}
         >
-          <ArrowDownwardIcon className={classes.buttonIcon} />
+          <ArrowDownwardIcon                           style={{color: "white"}}
+                                                       className={classes.buttonIcon} />
           Sell
         </LoadingButton>
       </Grid>

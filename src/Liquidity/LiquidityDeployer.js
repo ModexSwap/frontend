@@ -22,7 +22,7 @@ const styles = (theme) => ({
     paddingBottom: theme.spacing(3),
     width: "90%",
     overflow: "wrap",
-    background: "linear-gradient(90deg, hsla(339, 100%, 55%, 1) 0%, hsla(197, 100%, 64%, 1) 100%)",
+    background: "linear-gradient(to right, #17081E, #282b30)",
     color: COLORS.blueGrey[900],
   },
   fullWidth: {
@@ -342,7 +342,8 @@ function LiquidityDeployer(props) {
   return (
     <div>
       {/* Liquidity deployer */}
-      <Typography variant="h5" className={classes.title}></Typography>
+      <Typography variant="h5"                           style={{color: "white"}}
+                  className={classes.title}></Typography>
 
       {/* Dialog Windows */}
       <CoinDialog
@@ -401,16 +402,18 @@ function LiquidityDeployer(props) {
           spacing={2}
           xs={12}
         >
-          {/* Balance Display */}
-          <Typography variant="h6">Balances</Typography>
+          <Typography variant="h6"                          style={{color: "white"}}
+          >Balances</Typography>
           <Grid container direction="row" justifyContent="space-between">
             <Grid item xs={6}>
-              <Typography variant="body1" className={classes.balance}>
+              <Typography variant="body1"                           style={{color: "white"}}
+                          className={classes.balance}>
                 {formatBalance(coin1.balance, coin1.symbol)}
               </Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="body1" className={classes.balance}>
+              <Typography variant="body1"                          style={{color: "white"}}
+                          className={classes.balance}>
                 {formatBalance(coin2.balance, coin2.symbol)}
               </Typography>
             </Grid>
@@ -419,15 +422,18 @@ function LiquidityDeployer(props) {
           <hr className={classes.hr} />
 
           {/* Reserves Display */}
-          <Typography variant="h6">Reserves</Typography>
+          <Typography variant="h6"                          style={{color: "white"}}
+          >Reserves</Typography>
           <Grid container direction="row" justifyContent="space-between">
             <Grid item xs={6}>
-              <Typography variant="body1" className={classes.balance}>
+              <Typography variant="body1"                           style={{color: "white"}}
+                          className={classes.balance}>
                 {formatReserve(reserves[0], coin1.symbol)}
               </Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="body1" className={classes.balance}>
+              <Typography variant="body1"                          style={{color: "white"}}
+                          className={classes.balance}>
                 {formatReserve(reserves[1], coin2.symbol)}
               </Typography>
             </Grid>
@@ -436,10 +442,12 @@ function LiquidityDeployer(props) {
           <hr className={classes.hr} />
 
           {/* Liquidity Tokens Display */}
-          <Typography variant="h6">Liquidity Pool Tokens</Typography>
+          <Typography variant="h6"                          style={{color: "white"}}
+          >Liquidity Pool Tokens</Typography>
           <Grid container direction="row" justifyContent="center">
             <Grid item xs={6}>
-              <Typography variant="body1" className={classes.balance}>
+              <Typography variant="body1"                          style={{color: "white"}}
+                          className={classes.balance}>
                 {formatReserve(liquidityTokens, "UNI-V2")}
               </Typography>
             </Grid>
@@ -456,15 +464,18 @@ function LiquidityDeployer(props) {
             className={classes.fullWidth}
           >
             {/* Tokens in */}
-            <Typography variant="h6">Tokens in</Typography>
+            <Typography variant="h6"                          style={{color: "white"}}
+            >Tokens in</Typography>
             <Grid container direction="row" justifyContent="space-between">
               <Grid item xs={6}>
-                <Typography variant="body1" className={classes.balance}>
+                <Typography variant="body1"                           style={{color: "white"}}
+                            className={classes.balance}>
                   {formatBalance(liquidityOut[0], coin1.symbol)}
                 </Typography>
               </Grid>
               <Grid item xs={6}>
-                <Typography variant="body1" className={classes.balance}>
+                <Typography variant="body1"                          style={{color: "white"}}
+                            className={classes.balance}>
                   {formatBalance(liquidityOut[1], coin2.symbol)}
                 </Typography>
               </Grid>
@@ -473,10 +484,12 @@ function LiquidityDeployer(props) {
             <hr className={classes.hr} />
 
             {/* Liquidity Tokens Display */}
-            <Typography variant="h6">Liquidity Pool Tokens Out</Typography>
+            <Typography variant="h6"                          style={{color: "white"}}
+            >Liquidity Pool Tokens Out</Typography>
             <Grid container direction="row" justifyContent="center">
               <Grid item xs={6}>
-                <Typography variant="body1" className={classes.balance}>
+                <Typography variant="body1"                           style={{color: "white"}}
+                            className={classes.balance}>
                   {formatReserve(liquidityOut[2], "UNI-V2")}
                 </Typography>
               </Grid>
@@ -492,9 +505,10 @@ function LiquidityDeployer(props) {
           valid={isButtonEnabled()}
           success={false}
           fail={false}
-          onClick={deploy}
+          onClick={deploy}                          style={{color: "white"}}
         >
-          <AccountBalanceIcon className={classes.buttonIcon} />
+          <AccountBalanceIcon                          style={{color: "white"}}
+                                                       className={classes.buttonIcon} />
           Deploy
         </LoadingButton>
       </Grid>

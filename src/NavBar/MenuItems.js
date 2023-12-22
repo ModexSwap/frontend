@@ -1,7 +1,7 @@
 export const MenuItems = [
   {
     title: "Swap",
-    url: "/",
+    url: "/swap",
     cName: "nav-links",
   },
   {
@@ -12,6 +12,16 @@ export const MenuItems = [
   {
     title: "Index",
     url: "/buy-index",
+    cName: "nav-links",
+  },
+  {
+    title: "Stake",
+    url: "/staking",
+    cName: "nav-links",
+  },
+  {
+    title: "Loans",
+    url: "/loans",
     cName: "nav-links",
   },
 ];

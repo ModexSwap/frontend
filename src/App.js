@@ -7,53 +7,44 @@ import CoinSwapper from "./CoinSwapper/CoinSwapper";
 import { Route } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 import Liquidity from "./Liquidity/Liquidity";
+import MainPage from "./MainPage/MainPage";
+import Staking from "./Staking/Staking";
+import Loans from "./Loans/Loans";
 import { createTheme, ThemeProvider, Grid } from "@material-ui/core";
 import blue from "@material-ui/core/colors/blue";
 import blueGrey from "@material-ui/core/colors/blueGrey";
-
-import background from "./images/bg.png";
+import background from "./images/swap-bg.webp";
 import Index from "./Index/Index";
-
-const theme = createTheme({
-  palette: {
-    type: "dark",
-    primary: {
-      main: blue[800],
-      contrastText: blue[50],
-    },
-    secondary: {
-      main: blueGrey[900],
-      contrastText: blueGrey[50],
-    }
-  },
-});
-
+const gradientStyle = {
+    backgroundImage: 'linear-gradient(to right, #17081E, #282b30)'
+};
 const App = () => {
   return (
-    <div id="app" style={{ backgroundImage: `url(${background})` }}>
+    <div id="app" className="container-fluid bg-gradient-custom" style={gradientStyle} >
       <SnackbarProvider maxSnack={3}>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider >
           <Web3Provider
-            render={(network) => (
-              <React.Fragment>
-                <NavBar />
-                <Grid style={{height: 'calc(100% - 66px)', 'margin': '120px 0 0 120px'}} container>
-                  <Grid item>
-                    <Route exact path="/">
-                      <CoinSwapper network={network} />
-                    </Route>
+              render={(network) => (
+                  <React.Fragment>
+                    <NavBar />
+                    <div className="row pt-5">
+                        <div className="col"></div>
+                      <div className="col">
+                        <Route exact path="/" component={() => <MainPage network={network} />} />
 
-                    <Route exact path="/liquidity">
-                      <Liquidity network={network} />
-                    </Route>
+                        <Route exact path="/swap" component={() => <CoinSwapper network={network} />} />
+                        <Route exact path="/liquidity" component={() => <Liquidity network={network} />} />
+                        <Route exact path="/buy-index" component={() => <Index network={network} />} />
+                      <Route exact path="/staking" component={() => <Staking network={network} />} />
+                      <Route exact path="/loans" component={() => <Loans network={network} />} />
 
-                    <Route exact path="/buy-index">
-                      <Index network={network} />
-                    </Route>
-                  </Grid>
-                </Grid>
-              </React.Fragment>
-            )}
+
+                      </div>
+                        <div className="col"></div>
+
+                    </div>
+                  </React.Fragment>
+              )}
           ></Web3Provider>
         </ThemeProvider>
       </SnackbarProvider>

@@ -355,15 +355,11 @@ function CoinSwapper(props) {
       <WrongNetwork open={wrongNetworkOpen} />
 
       {/* Coin Swapper */}
-      <Container>
-        <Card className={{ ...classes.paperContainer, glass: true }}>
+      <Container >
+        <Card className={{ ...classes.paperContainer, glass: true }} style={{backgroundColor: "rgb(32,34,49)"}}>
           <CardHeader
-            action={
-              <IconButton aria-label="settings">
-                <SettingsIcon />
-              </IconButton>
-            }
             title="Swap"
+            style={{color: "white"}}
           />
 
           <CardContent>
@@ -375,15 +371,18 @@ function CoinSwapper(props) {
                   onClick={() => setDialog1Open(true)}
                   onChange={handleChange.field1}
                   symbol={coin1.symbol !== undefined ? coin1.symbol : "Select"}
+
                 />
               </Grid>
 
-              <Grid item>
+              <Grid item class="-my-2">
                 <IconButton
                   onClick={switchFields}
                   className={classes.switchButton}
                 >
-                  <SwapVerticalCircleIcon fontSize="medium" />
+                  <SwapVerticalCircleIcon
+                      style={{ color:"white"}}
+                      fontSize="large" />
                 </IconButton>
               </Grid>
 
@@ -399,15 +398,18 @@ function CoinSwapper(props) {
               <hr className={classes.hr} />
 
               {/* Balance Display */}
-              <Typography variant="h6">Balances</Typography>
+              <Typography variant="h6"            style={{ color:"white"}}
+              >Balances</Typography>
               <Grid container direction="row" justifyContent="space-between">
                 <Grid item xs={6}>
-                  <Typography variant="body1" className={classes.balance}>
+                  <Typography variant="body1"            style={{ color:"white"}}
+                              className={classes.balance}>
                     {formatBalance(coin1.balance, coin1.symbol)}
                   </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography variant="body1" className={classes.balance}>
+                  <Typography variant="body1"             style={{ color:"white"}}
+                              className={classes.balance}>
                     {formatBalance(coin2.balance, coin2.symbol)}
                   </Typography>
                 </Grid>
@@ -416,30 +418,35 @@ function CoinSwapper(props) {
               <hr className={classes.hr} />
 
               {/* Reserves Display */}
-              <Typography variant="h6">Reserves</Typography>
+              <Typography variant="h6"            style={{ color:"white"}}
+              >Reserves</Typography>
               <Grid container direction="row" justifyContent="space-between">
                 <Grid item xs={6}>
-                  <Typography variant="body1" className={classes.balance}>
+                  <Typography variant="body1"             style={{ color:"white"}}
+                              className={classes.balance}>
                     {formatReserve(reserves[0], coin1.symbol)}
                   </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography variant="body1" className={classes.balance}>
+                  <Typography variant="body1"             style={{ color:"white"}}
+                              className={classes.balance}>
                     {formatReserve(reserves[1], coin2.symbol)}
                   </Typography>
                 </Grid>
               </Grid>
             </Grid>
-            
+
             <hr className={classes.hr} />
             <LoadingButton
               loading={loading}
               valid={isButtonEnabled()}
               success={false}
               fail={false}
-              onClick={swap}
+              onClick={swap}            style={{ color:"white"}}
+
             >
-              <LoopIcon />
+              <LoopIcon            style={{ color:"white"}}
+              />
               Swap
             </LoadingButton>
           </CardContent>

@@ -184,7 +184,8 @@ function LiquidityDeployer(props) {
   return (
     <div>
       {/* Liquidity deployer */}
-      <Typography variant="h5" className={classes.title}></Typography>
+      <Typography variant="h5"                           style={{color: "white"}}
+                  className={classes.title}></Typography>
 
 
       <WrongNetwork
@@ -221,9 +222,11 @@ function LiquidityDeployer(props) {
           valid={isButtonEnabled()}
           success={false}
           fail={false}
-          onClick={deploy}
+          onClick={deploy}                          style={{color: "white"}}
+
         >
-          <AccountBalanceIcon className={classes.buttonIcon} />
+          <AccountBalanceIcon                           style={{color: "white"}}
+                                                        className={classes.buttonIcon} />
           { (coin1.balance > coin1.allowance && field1Value > coin1.allowance)? "Approve" :"Buy Index" }
         </LoadingButton>
       </Grid>

@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     padding: theme.spacing(1),
     minHeight: "80px",
-    backgroundColor: "#121212",
+    backgroundColor: "#161522",
     borderRadius: theme.spacing(2),
     borderColor: COLORS.blueGrey[300],
     borderWidth: "1px",
@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
   container_input: {
     padding: theme.spacing(1),
     minHeight: "68px",
-    backgroundColor: "#121212",
+    backgroundColor: "#161522",
+    color:"#A09EA1",
     borderRadius: theme.spacing(2),
     borderColor: COLORS.blueGrey[300],
     borderWidth: "1px",
@@ -39,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     ...theme.typography.h5,
     width: "100%",
+    color:"#A09EA1",
   },
   inputBase: {
     textAlign: "right",
@@ -167,7 +169,8 @@ export default function CoinField(props) {
         direction="row"
         justifyContent="space-between"
         alignItems="center"
-        className={classes.grid}
+        className={classes.grid}                  color="white"
+
       >
         {/* Button */}
         {props.hideSymbol ? (
@@ -178,6 +181,7 @@ export default function CoinField(props) {
               size="small"
               variant="extended"
               onClick={onClick}
+              style={{ color:"white"}}
               className={classes.fab}
               endIcon={<ExpandMoreIcon />}
             >
@@ -187,6 +191,8 @@ export default function CoinField(props) {
         )}
         <Grid item xs={9}>
           <InputBase
+            style={{ color:"white"}}
+            color="white"
             value={value}
             onChange={onChange}
             placeholder={balance ? balance : "0.0"}

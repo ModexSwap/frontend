@@ -31,7 +31,7 @@ export default function CoinButton(props) {
     <ButtonBase focusRipple className={classes.button} onClick={onClick}>
       <Grid container direction="column">
         <Typography variant="h6">{coinAbbr}</Typography>
-        <Typography variant="body2" className={classes.coinName}>
+        <Typography variant="" className={classes.coinName}>
           {coinName}
         </Typography>
       </Grid>
